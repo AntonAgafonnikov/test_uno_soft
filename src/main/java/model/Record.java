@@ -19,7 +19,6 @@ public class Record {
         return index;
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -9,17 +9,19 @@ import java.io.FileReader;
 public class FileBufferedReader {
 
     public static void readFromFile(File file) {
+        System.out.println("Чтение файла...");
         try (
                 var fileReader = new FileReader(file);
                 var bufferedReader = new BufferedReader(fileReader)
         ) {
             String line;
             while ((line = bufferedReader.readLine()) != null) {
-                ProcessingLineService.processingLine(line);
+                //ProcessingLineService.processingLine(line);
             }
 
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+        System.out.println("Чтение файла законченно");
     }
 }
