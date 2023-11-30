@@ -1,11 +1,9 @@
 import file.reader.FileBufferedReader;
 import file.writer.FileBufferedWriter;
-import service.ProcessingLineService;
 
 import java.io.File;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.List;
 
 public class Main {
     private static final String PATH_INPUT_FILE = "src/main/resources/input/lng.txt";
@@ -20,8 +18,9 @@ public class Main {
         System.out.println("Запуск программы");
         var start = Instant.now();
 
-        var linesList = FileBufferedReader.readFromFile(new File(PATH_INPUT_FILE));
-        ProcessingLineService.processingLine(linesList);
+        //var linesList = FileBufferedReader.readFromFile(new File(PATH_INPUT_FILE));
+        FileBufferedReader.readFromFile(new File(PATH_INPUT_FILE));
+        //ProcessingLineService.processingLine(linesList);
         FileBufferedWriter.writeToFile(new File(PATH_OUTPUT_FILE));
 
         var finish = Instant.now();
