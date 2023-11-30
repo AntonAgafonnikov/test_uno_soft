@@ -3,9 +3,6 @@ package service;
 import model.Record;
 import repository.ValueRepository;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -13,53 +10,31 @@ import java.util.UUID;
 public class ProcessingLineService {
     private static final ValueRepository valueRepository = new ValueRepository();
 
-    public ValueRepository getValueRepository() {
-        return valueRepository;
-    }
+    public static void processingLine(List<String> linesList) {
+        System.out.println("Обработка строк...");
 
-    public static void processingLine() {
-        //todo
-        System.out.println("Чтение файла...");
-
-        List<String> lines = new ArrayList<>();
-        try (
-                var fileReader = new FileReader(new File("lng.txt"));
-                var bufferedReader = new BufferedReader(fileReader)
-        ) {
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                lines.add(line);
-            }
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        //todo
-        System.out.println("Чтение файла закончено. Количество строк: " + lines.size());
-
-        for (String line : lines) {
+        for (String line : linesList) {
             if (valueRepository.getLinesHashSet().contains(line) || valueRepository.getBlackListLinesHashSet().contains(line)) {
-                //todo was return
                 continue;
-            } else {
-                valueRepository.getLinesHashSet().add(line);
             }
+            valueRepository.getLinesHashSet().add(line);
 
             var recordsArray = line.split(";");
             var length = recordsArray.length;
             var newGroupUUID = UUID.randomUUID().toString();
             var flagOverwritingKeyNextMatches = false;
             String firstGroupMatch = null;
+
             for (int i = 0; i < length; i++) {
                 var currentValueRecord = recordsArray[i];
+
                 if (currentValueRecord.length() < 3) {
                     continue;
                 }
-                // Валидация значения
+
                 if (currentValueRecord.substring(1, currentValueRecord.length() - 1).contains("\"")) {
                     valueRepository.getLinesHashSet().remove(line);
                     valueRepository.getBlackListLinesHashSet().add(line);
-                    //todo was return
                     continue;
                 }
 
@@ -81,7 +56,6 @@ public class ProcessingLineService {
                         } else {
                             valueRepository.getRecordAndGroupHashMap().put(currentRecord, firstGroupMatch);
                         }
-
                     }
 
                 } else {
@@ -104,6 +78,7 @@ public class ProcessingLineService {
                 }
             }
         }
+        System.out.println("Обработка строк завершена");
     }
 }
 

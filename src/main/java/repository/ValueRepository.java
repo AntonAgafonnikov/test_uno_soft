@@ -7,12 +7,12 @@ import java.util.HashSet;
 import java.util.List;
 
 public class ValueRepository {
-    private final HashSet<String> linesHashSet = new HashSet<>();
-    private final HashSet<String> blackListLinesHashSet = new HashSet<>();
-    private final HashSet<Record> recordsHashSet = new HashSet<>();
+    private static final HashSet<String> linesHashSet = new HashSet<>();
+    private static final HashSet<String> blackListLinesHashSet = new HashSet<>();
+    private static final HashSet<Record> recordsHashSet = new HashSet<>();
 
-    private final HashMap<Record, String> recordAndGroupHashMap = new HashMap<>();
-    private final HashMap<String, List<String>> groupAndLinesHashMap = new HashMap<>();
+    private static final HashMap<Record, String> recordAndGroupHashMap = new HashMap<>();
+    private static final HashMap<String, List<String>> groupAndLinesHashMap = new HashMap<>();
 
 
     public HashSet<String> getLinesHashSet() {

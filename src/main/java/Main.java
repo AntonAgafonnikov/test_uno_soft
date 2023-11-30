@@ -5,29 +5,28 @@ import service.ProcessingLineService;
 import java.io.File;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.List;
 
 public class Main {
-    //private static final String PATH_INPUT_FILE = "src/main/resources/lng.txt";
-    private static final String PATH_INPUT_FILE = "lng.txt";
-    private static final String PATH_OUTPUT_FILE = "result.txt";
+    private static final String PATH_INPUT_FILE = "src/main/resources/input/lng.txt";
+    private static final String PATH_OUTPUT_FILE = "src/main/resources/output/result.txt";
 
     public static void main(String[] args) {
 //        if (args.length < 1) {
 //            System.err.println("Invalid arguments");
 //        }
-//        File fileOutput = new File(args[0]);
+//        var fileOutput = new File(args[0]);
 
-        System.out.println("Запуск программы...");
-        Instant start = Instant.now();
+        System.out.println("Запуск программы");
+        var start = Instant.now();
 
-        //todo FileBufferedReader.readFromFile(new File(PATH_INPUT_FILE));
-        ProcessingLineService.processingLine();
+        var linesList = FileBufferedReader.readFromFile(new File(PATH_INPUT_FILE));
+        ProcessingLineService.processingLine(linesList);
         FileBufferedWriter.writeToFile(new File(PATH_OUTPUT_FILE));
 
-        Instant finish = Instant.now();
-        long elapsed = Duration.between(start, finish).toSeconds();
-        System.out.println("Программа завершена");
-        System.out.println("Прошло времени: " + elapsed);
+        var finish = Instant.now();
+        var elapsed = Duration.between(start, finish).toSeconds();
+        System.out.println("Время выполнения: " + elapsed + "с");
 
     }
 }
