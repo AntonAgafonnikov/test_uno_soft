@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileReader;
 
 public class FileBufferedReader {
+    public static final ProcessingLineService processingLineService = new ProcessingLineService();
 
     public static void readFromFile(File file) {
         System.out.println("Чтение файла");
@@ -17,12 +18,13 @@ public class FileBufferedReader {
             System.out.println("Обработка строк...");
             String line;
             while ((line = bufferedReader.readLine()) != null) {
-                ProcessingLineService.processingLine(line);
+                processingLineService.processingLine(line);
             }
 
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+
         System.out.println("Обработка строк завершена.");
     }
 }

@@ -18,14 +18,11 @@ public class Main {
         System.out.println("Запуск программы");
         var start = Instant.now();
 
-        //var linesList = FileBufferedReader.readFromFile(new File(PATH_INPUT_FILE));
         FileBufferedReader.readFromFile(new File(PATH_INPUT_FILE));
-        //ProcessingLineService.processingLine(linesList);
         FileBufferedWriter.writeToFile(new File(PATH_OUTPUT_FILE));
 
         var finish = Instant.now();
         var elapsed = Duration.between(start, finish).toSeconds();
         System.out.println("Время выполнения: " + elapsed + "с");
-
     }
 }
