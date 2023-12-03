@@ -6,8 +6,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Map;
+import java.util.TreeSet;
 
 public class FileBufferedWriter {
     private static int numberGroups = 0;
@@ -28,7 +28,7 @@ public class FileBufferedWriter {
 
             while (maxSizeList > 0) {
 
-                for (Map.Entry<Integer, ArrayList<String>> entry : ProcessingLineService.groupAndLinesHashMap.entrySet()) {
+                for (Map.Entry<Integer, TreeSet<String>> entry : ProcessingLineService.groupAndLinesHashMap.entrySet()) {
 
                     if (entry.getValue().size() == maxSizeList) {
 
@@ -50,7 +50,7 @@ public class FileBufferedWriter {
     private static int findMaxSize() {
         var maxSize = 1;
 
-        for (Map.Entry<Integer, ArrayList<String>> entry : ProcessingLineService.groupAndLinesHashMap.entrySet()) {
+        for (Map.Entry<Integer, TreeSet<String>> entry : ProcessingLineService.groupAndLinesHashMap.entrySet()) {
             var currentValueSize = entry.getValue().size();
 
             if (currentValueSize > 1) {

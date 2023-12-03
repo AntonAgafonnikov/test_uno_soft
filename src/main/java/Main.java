@@ -6,19 +6,17 @@ import java.time.Duration;
 import java.time.Instant;
 
 public class Main {
-    private static final String PATH_INPUT_FILE = "src/main/resources/input/lng.txt";
-    private static final String PATH_OUTPUT_FILE = "src/main/resources/output/result.txt";
+    private static final String PATH_OUTPUT_FILE = "result.txt";
 
     public static void main(String[] args) {
-//        if (args.length < 1) {
-//            System.err.println("Invalid arguments");
-//        }
-//        var fileOutput = new File(args[0]);
+        if (args.length < 1) {
+            System.err.println("Invalid arguments");
+        }
+        var fileInput = new File(args[0]);
 
-        System.out.println("Запуск программы");
         var start = Instant.now();
 
-        FileBufferedReader.readFromFile(new File(PATH_INPUT_FILE));
+        FileBufferedReader.readFromFile(fileInput);
         FileBufferedWriter.writeToFile(new File(PATH_OUTPUT_FILE));
 
         var finish = Instant.now();

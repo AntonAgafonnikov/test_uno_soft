@@ -10,12 +10,11 @@ public class FileBufferedReader {
     public static final ProcessingLineService processingLineService = new ProcessingLineService();
 
     public static void readFromFile(File file) {
-        System.out.println("Чтение файла");
         try (
                 var fileReader = new FileReader(file);
                 var bufferedReader = new BufferedReader(fileReader)
         ) {
-            System.out.println("Обработка строк...");
+            System.out.println("Обработка строк из файла...");
             String line;
             while ((line = bufferedReader.readLine()) != null) {
                 processingLineService.processingLine(line);
