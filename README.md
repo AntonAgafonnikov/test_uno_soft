@@ -12,4 +12,4 @@
 ## Сборка и запуск
 
 - `mvn clean package`  
-- `java -jar -Xmx1G artifacts/test.jar artifacts/lng.txt`
+- `java -jar -Xmx1G artifacts/test.jar artifacts/lng-big.csv`

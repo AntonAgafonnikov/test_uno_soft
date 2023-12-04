@@ -12,6 +12,9 @@ public class ProcessingLineService {
     private int newGroupID = 0;
 
     public void processingLine(String line) {
+        var isCorrectRecordsArray = line.replace(";", "");
+        if (isCorrectRecordsArray.equals(""))
+            return;
 
         var recordsArray = line.split(";");
         var flagOverwritingKeyNextMatches = false;
@@ -21,11 +24,11 @@ public class ProcessingLineService {
         for (int i = 0; i < recordsArray.length; i++) {
             var currentRecordValue = recordsArray[i];
 
-            if (currentRecordValue.substring(1, currentRecordValue.length() - 1).contains("\""))
-                return;
-
             if (currentRecordValue.length() < 3)
                 continue;
+
+            if (currentRecordValue.substring(1, currentRecordValue.length() - 1).contains("\""))
+                return;
 
             var currentRecord = new Record(currentRecordValue, i);
             if (recordAndGroupHashMap.containsKey(currentRecord)) {
@@ -38,7 +41,7 @@ public class ProcessingLineService {
                 } else {
                     int group = recordAndGroupHashMap.get(currentRecord);
 
-                    if (group != firstGroupMatch && groupAndLinesHashMap.get(group) != null) {
+                    if (group != firstGroupMatch && groupAndLinesHashMap.get(group) != null && groupAndLinesHashMap.get(firstGroupMatch) != null) {
                         var transferTreeSet = new TreeSet<>(groupAndLinesHashMap.get(firstGroupMatch));
                         transferTreeSet.addAll(groupAndLinesHashMap.remove(group));
                         groupAndLinesHashMap.put(firstGroupMatch, transferTreeSet);
@@ -56,7 +59,7 @@ public class ProcessingLineService {
             }
         }
 
-        if (!flagOverwritingKeyNextMatches) {
+        if (!flagOverwritingKeyNextMatches || groupAndLinesHashMap.get(firstGroupMatch) == null) {
             groupAndLinesHashMap.put(newGroupID, new TreeSet<>(Set.of(line)));
         } else {
             var transferTreeSet = new TreeSet<>(groupAndLinesHashMap.get(firstGroupMatch));
