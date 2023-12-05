@@ -27,7 +27,7 @@ public class ProcessingLineService {
             if (currentRecordValue.length() < 3)
                 continue;
 
-            if (currentRecordValue.substring(1, currentRecordValue.length() - 1).contains("\""))
+           if (currentRecordValue.substring(1, currentRecordValue.length() - 1).contains("\""))
                 return;
 
             var currentRecord = new Record(currentRecordValue, i);
@@ -41,11 +41,10 @@ public class ProcessingLineService {
                 } else {
                     int group = recordAndGroupHashMap.get(currentRecord);
 
-                    if (group != firstGroupMatch && groupAndLinesHashMap.get(group) != null && groupAndLinesHashMap.get(firstGroupMatch) != null) {
+                    if (group != firstGroupMatch && groupAndLinesHashMap.get(group) != null) {
                         var transferTreeSet = new TreeSet<>(groupAndLinesHashMap.get(firstGroupMatch));
-                        transferTreeSet.addAll(groupAndLinesHashMap.remove(group));
+                        transferTreeSet.addAll(groupAndLinesHashMap.get(group)); //remove
                         groupAndLinesHashMap.put(firstGroupMatch, transferTreeSet);
-                        return;
                     }
                     recordAndGroupHashMap.put(currentRecord, firstGroupMatch);
                 }
@@ -59,7 +58,7 @@ public class ProcessingLineService {
             }
         }
 
-        if (!flagOverwritingKeyNextMatches || groupAndLinesHashMap.get(firstGroupMatch) == null) {
+        if (!flagOverwritingKeyNextMatches) {
             groupAndLinesHashMap.put(newGroupID, new TreeSet<>(Set.of(line)));
         } else {
             var transferTreeSet = new TreeSet<>(groupAndLinesHashMap.get(firstGroupMatch));

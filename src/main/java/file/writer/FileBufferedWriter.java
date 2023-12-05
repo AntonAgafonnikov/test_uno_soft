@@ -20,6 +20,8 @@ public class FileBufferedWriter {
         var count = 1;
         var result = "Число групп с более чем одним элементом: " + numberGroups;
 
+
+
         try (
                 var fileWriter = new FileWriter(file);
                 var bufferedWriter = new BufferedWriter(fileWriter)

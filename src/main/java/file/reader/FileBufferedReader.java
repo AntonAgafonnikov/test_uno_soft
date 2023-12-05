@@ -17,6 +17,7 @@ public class FileBufferedReader {
             System.out.println("Обработка строк из файла...");
             String line;
             while ((line = bufferedReader.readLine()) != null) {
+                //System.out.println(line);
                 processingLineService.processingLine(line);
             }
 

@@ -9,10 +9,14 @@ public class Main {
     private static final String PATH_OUTPUT_FILE = "result.txt";
 
     public static void main(String[] args) {
-        if (args.length < 1) {
-            System.err.println("Invalid arguments");
-        }
-        var fileInput = new File(args[0]);
+//        if (args.length < 1) {
+//            System.err.println("Invalid arguments");
+//        }
+//        var fileInput = new File(args[0]);
+
+        //var fileInput = (new File("artifacts/lng.txt"));
+        var fileInput = (new File("artifacts/lng-big.csv"));
+        //var fileInput = (new File("artifacts/test.csv"));
 
         var start = Instant.now();
 
