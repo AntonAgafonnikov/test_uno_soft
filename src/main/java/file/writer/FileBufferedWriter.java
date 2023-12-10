@@ -6,21 +6,21 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeSet;
 
 public class FileBufferedWriter {
     private static int numberGroups = 0;
+    ProcessingLineService processingLineService = new ProcessingLineService();
 
-    public static void writeToFile(File file) {
+    public void writeToFile(File file) {
         System.out.println("Запись результатов в файл...");
-        ProcessingLineService.recordAndGroupHashMap.clear();
 
         var maxSizeList = findMaxSize();
         var count = 1;
         var result = "Число групп с более чем одним элементом: " + numberGroups;
-
-
 
         try (
                 var fileWriter = new FileWriter(file);
@@ -30,7 +30,8 @@ public class FileBufferedWriter {
 
             while (maxSizeList > 0) {
 
-                for (Map.Entry<Integer, TreeSet<String>> entry : ProcessingLineService.groupAndLinesHashMap.entrySet()) {
+                for (Map.Entry<Integer, TreeSet<String>> entry : processingLineService.correctlyGroupAndLinesListHashMap.entrySet()) {
+
 
                     if (entry.getValue().size() == maxSizeList) {
 
@@ -49,20 +50,21 @@ public class FileBufferedWriter {
         System.out.println("Запись завершена. " + result);
     }
 
-    private static int findMaxSize() {
+    private int findMaxSize() {
         var maxSize = 1;
 
-        for (Map.Entry<Integer, TreeSet<String>> entry : ProcessingLineService.groupAndLinesHashMap.entrySet()) {
-            var currentValueSize = entry.getValue().size();
+        for (Map.Entry<Integer, TreeSet<String>> entry : processingLineService.correctlyGroupAndLinesListHashMap.entrySet()) {
+                var currentValueSize = entry.getValue().size();
 
-            if (currentValueSize > 1) {
-                numberGroups++;
+                if (currentValueSize > 1) {
+                    numberGroups++;
 
-                if (currentValueSize > maxSize) {
-                    maxSize = currentValueSize;
+                    if (currentValueSize > maxSize) {
+                        maxSize = currentValueSize;
+                    }
                 }
             }
-        }
         return maxSize;
     }
+
 }
